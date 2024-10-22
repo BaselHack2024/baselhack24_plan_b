@@ -11,4 +11,7 @@ If you have documentation about the code (e.g. UML Diagrams, a readme etc.), tha
 
 If you have assets (like videos, presentations etc.), this can go into the `assets` directory.
 
+You can use the MIT license in this template. Make sure to adjust the copy right holders in the placeholder `<copyright holder>` and add every team member to it.
+You are also free to choose any other license - depending on the consensus of you team.
+
 Thanks a lot!
