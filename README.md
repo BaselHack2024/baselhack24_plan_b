@@ -51,6 +51,13 @@ Make sure all module requirements are met or install them with:
 python -m pip install -r requirements.txt
 ~~~
 
+
+After the dependencies are installed, you can run the backend with the following command in the app directory:
+
+~~~
+uvicorn main:app --reload
+~~~
+
 ## License
 
 ```
