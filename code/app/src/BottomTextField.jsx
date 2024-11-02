@@ -18,8 +18,10 @@ import {
 } from "./utils/api-service";
 import { MessageLeft, MessageRight, MessageLeftWithImage } from "./Message";
 import Box from "@mui/material/Box";
-import LinearProgress from "@mui/material/LinearProgress";
+import timeout from "./utils/sleep";
+import AudioForResult from "./assets/mariachi.mp3";
 import { CircularProgress } from "@mui/material";
+
 
 const actions = [
   {
@@ -104,7 +106,7 @@ function BottomTextField() {
     }, 2000);
   };
 
-  const handleAnalysisResponse = (response) => {
+  const handleAnalysisResponse = async (response) => {
     console.log(response);
     const messagesCopy = Object.assign([], messagesRef.current);
 
@@ -112,6 +114,10 @@ function BottomTextField() {
       type: "right",
       message: `Hey I am finsished with writing the manual for ${response.object}!`,
     });
+    const audio = new Audio(AudioForResult);
+    await audio.play();
+
+    await timeout(1000);
 
     response.steps.forEach((step, index) => {
       messagesCopy.push({
@@ -120,6 +126,7 @@ function BottomTextField() {
         image: uploadedImages[index],
       });
     });
+
     setMessages(messagesCopy);
     setLoading(false);
   };
