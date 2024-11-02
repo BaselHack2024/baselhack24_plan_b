@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { styled, useTheme } from "@mui/material/styles";
 import Box from "@mui/material/Box";
 import Drawer from "@mui/material/Drawer";
@@ -6,7 +6,6 @@ import CssBaseline from "@mui/material/CssBaseline";
 import MuiAppBar from "@mui/material/AppBar";
 import Toolbar from "@mui/material/Toolbar";
 import List from "@mui/material/List";
-import Typography from "@mui/material/Typography";
 import Divider from "@mui/material/Divider";
 import IconButton from "@mui/material/IconButton";
 import MenuIcon from "@mui/icons-material/Menu";
@@ -72,7 +71,7 @@ function LeftDrawer() {
         <Toolbar
           sx={{
             justifyContent: "space-between",
-            background: "linear-gradient(90deg, #ff3131, #ff914d)",
+            background: "linear-gradient(45deg, #ab5353, transparent)",
           }}
         >
           <IconButton
@@ -84,9 +83,7 @@ function LeftDrawer() {
           >
             <MenuIcon />
           </IconButton>
-          <Typography variant="h6" noWrap component="div">
-            <img src={HeaderLogo} height="40px" />
-          </Typography>
+          <img src={HeaderLogo} height="35px" />
           <IconButton
             color="inherit"
             aria-label="new chat"

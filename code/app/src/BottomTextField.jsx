@@ -144,7 +144,7 @@ function BottomTextField() {
 
   return (
     <div>
-      <Paper
+      <Box
         sx={{
           position: "fixed",
           p: "4px 4px",
@@ -152,6 +152,7 @@ function BottomTextField() {
           flexDirection: "column",
           maxHeight: "85vh",
           overflowY: "auto",
+          maxWidth: "100%",
           top: 75,
           left: 0,
           right: 0,
@@ -186,7 +187,7 @@ function BottomTextField() {
             </Box>
           </>
         )}
-      </Paper>
+      </Box>
       <Paper
         component="form"
         sx={{
@@ -214,9 +215,9 @@ function BottomTextField() {
           FabProps={{
             size: "small",
             sx: {
-              bgcolor: "#223E44",
+              bgcolor: "#ab5353",
               "&:hover": {
-                bgcolor: "#223E44",
+                bgcolor: "#ab5353",
               },
             },
           }}
