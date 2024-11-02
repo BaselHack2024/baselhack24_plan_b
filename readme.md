@@ -1,4 +1,9 @@
+![Example](assets/header.png)
+
 # BaselHack 2024
+[![](https://img.shields.io/badge/Jupyter-F37626.svg?style=for-the-badge&logo=Jupyter&logoColor=white 'Jupyter')](http://jupyter.org)
+[![](https://img.shields.io/badge/NumPy-013243.svg?style=for-the-badge&logo=NumPy&logoColor=white 'Numpy')](https://numpy.org)
+[![](https://img.shields.io/badge/pandas-150458.svg?style=for-the-badge&logo=pandas&logoColor=white 'Pandas')](https://pandas.pydata.org)
 
 This is the template repository, which makes our lives (and especially the lives of the jury) easier,
 if you follow our structure.
