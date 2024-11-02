@@ -10,10 +10,15 @@ import SpeedDialAction from "@mui/material/SpeedDialAction";
 import FolderCopyRoundedIcon from "@mui/icons-material/FolderCopyRounded";
 import CameraAltRoundedIcon from "@mui/icons-material/CameraAltRounded";
 import UploadAndDisplayImages from "./UploadAndDisplayImages";
-import { createProcessId, uploadPicturesToProcess, startProcess, checkResult } from "./utils/api-service";
-import { MessageLeft, MessageRight } from "./Message";
-import Box from '@mui/material/Box';
-import LinearProgress from '@mui/material/LinearProgress';
+import {
+  createProcessId,
+  uploadPicturesToProcess,
+  startProcess,
+  checkResult,
+} from "./utils/api-service";
+import { MessageLeft, MessageRight, MessageRightWithImage } from "./Message";
+import Box from "@mui/material/Box";
+import LinearProgress from "@mui/material/LinearProgress";
 
 const actions = [
   {
@@ -32,9 +37,10 @@ function BottomTextField() {
   const [isModalOpen, setModalOpen] = useState(false);
   const [processId, setProcessId] = useState("");
   const [messages, setMessages] = useState([]);
-  const messagesRef = useRef(messages)
+  const messagesRef = useRef(messages);
   const [disableInputs, setDisableInput] = useState(false);
   const [loading, setLoading] = useState(false);
+  const [uploadedImages, setUploadedImages] = useState([]);
 
   const handleDialClick = (e, operation) => {
     e.preventDefault();
@@ -48,6 +54,7 @@ function BottomTextField() {
   const handleCloseUploadDialog = (images) => {
     if (images) {
       setModalOpen(false);
+      setUploadedImages(images);
       uploadPicturesToProcess(images, processId).then((response) => {
         console.log(response);
         const messagesCopy = Object.assign([], messages);
@@ -88,11 +95,11 @@ function BottomTextField() {
 
     const interval = setInterval(async () => {
       const response = await checkResult(processId);
-      console.log(response)
-      if ((typeof response) === 'object') {
+      console.log(response);
+      if (typeof response === "object") {
         clearInterval(interval);
         handleAnalysisResponse(response);
-      };
+      }
     }, 2000);
   };
 
@@ -101,12 +108,19 @@ function BottomTextField() {
     const messagesCopy = Object.assign([], messagesRef.current);
 
     messagesCopy.push({
-      type: 'right',
-      message: `Hey I am done!`
+      type: "right",
+      message: `Hey I am finsished with writing the manual for ${response.object}!`,
+    });
+
+    response.steps.forEach((step, index) => {
+      messagesCopy.push({
+        type: "right-picture",
+        message: `Step ${step.step}, ${step.instruction}`,
+        image: uploadedImages[index],
+      });
     });
     setMessages(messagesCopy);
-
-  }
+  };
 
   useEffect(() => {
     createProcessId().then((id) => {
@@ -115,28 +129,55 @@ function BottomTextField() {
     });
   }, []);
 
-  useEffect(
-    () => { messagesRef.current = messages },
-    [messages]
-  )
+  useEffect(() => {
+    messagesRef.current = messages;
+  }, [messages]);
 
   return (
     <div>
-      {messages.map((message) => (
-        <React.Fragment key={message.message}>
-          {message.type === "left" && (
-            <>
-              <MessageLeft message={message.message} />
-            </>
-          )}
-          {message.type === "right" && (
-            <>
-              <MessageRight message={message.message} />
-            </>
-          )}
-        </React.Fragment>
-      ))}
-
+      <Paper
+        sx={{
+          position: "fixed",
+          p: "4px 4px",
+          display: "flex",
+          flexDirection: "column",
+          maxHeight: "85vh",
+          overflowY: "auto",
+          top: 75,
+          left: 0,
+          right: 0,
+        }}
+      >
+        {messages.map((message) => (
+          <React.Fragment key={message.message}>
+            {message.type === "left" && (
+              <>
+                <MessageLeft message={message.message} />
+              </>
+            )}
+            {message.type === "right" && (
+              <>
+                <MessageRight message={message.message} />
+              </>
+            )}
+            {message.type === "right-picture" && (
+              <>
+                <MessageRightWithImage
+                  message={message.message}
+                  image={message.image}
+                />
+              </>
+            )}
+          </React.Fragment>
+        ))}
+        {loading && (
+          <>
+            <Box sx={{ width: "100%" }}>
+              <LinearProgress />
+            </Box>
+          </>
+        )}
+      </Paper>
       <Paper
         component="form"
         sx={{
@@ -155,7 +196,6 @@ function BottomTextField() {
           inputProps={{ "aria-label": "text field" }}
         />
         <SpeedDial
-          disabled={disableInputs}
           ariaLabel="speed dial"
           sx={{
             position: "absolute",
