@@ -14,13 +14,13 @@
 
 Part of the team was:
 
-[Michael Beutler](https://github.com/michaelbeutler)
-[Basil Holinger](https://github.com/kinba3000)
-[Paul Gesser](https://github.com/paulgeser)
-[Raquel Lima](https://github.com/raquelima)
-[Thierry Grimm](https://github.com/thierrygrimm)
-[Nathanel Thomman](https://github.com/nathanaelthomann)
-[Micha Thomman](https://github.com/)
+![](https://avatars.githubusercontent.com/u/35310806?v=4)[Michael Beutler](https://github.com/michaelbeutler) <br>
+[Basil Holinger](https://github.com/kinba3000) <br>
+[Paul Gesser](https://github.com/paulgeser) <br>
+[Raquel Lima](https://github.com/raquelima) <br>
+[Thierry Grimm](https://github.com/thierrygrimm) <br>
+[Nathanel Thomman](https://github.com/nathanaelthomann) <br>
+[Micha Thomman](https://github.com/) <br>
 
 
 
