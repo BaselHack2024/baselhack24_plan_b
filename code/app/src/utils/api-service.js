@@ -38,13 +38,13 @@ export const uploadPicturesToProcess = async (images, processId) => {
             console.log("Upload successful:", result);
             uploadResult.push({
                 state: 'success',
-                image: images
+                image: image
             });
         } catch (error) {
             console.error("Error uploading image:", error);
             uploadResult.push({
                 state: 'error',
-                image: images
+                image: image
             });
         }
     }
