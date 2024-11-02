@@ -4,3 +4,6 @@ loguru==0.6.0
 dspy==2.5.1
 pydantic==2.9.2
 instructor==1.6.3
+tqdm==4.66.4
+openai==1.53.0
+python-dotenv==1.0.1
