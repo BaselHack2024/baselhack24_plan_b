@@ -14,7 +14,7 @@
 
 Part of the team was:
 
-![](https://avatars.githubusercontent.com/u/35310806?v=4)[Michael Beutler](https://github.com/michaelbeutler) <br>
+[Michael Beutler](https://github.com/michaelbeutler) <br>
 [Basil Holinger](https://github.com/kinba3000) <br>
 [Paul Gesser](https://github.com/paulgeser) <br>
 [Raquel Lima](https://github.com/raquelima) <br>
