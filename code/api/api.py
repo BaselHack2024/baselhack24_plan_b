@@ -1,7 +1,17 @@
 """This is the api module."""
+import os
+import uuid
 
-from fastapi import APIRouter, FastAPI
-from namespace import namespace
+from fastapi import APIRouter, FastAPI, status, UploadFile, BackgroundTasks
+
+from logic.prepare_analysis import create_process_directory, add_image_to_process_directory
+
+from model.start_analysis_input import StartAnalysisInput
+
+from logic.run_analysis import run_process_analysis
+
+# Creater API router with prefix
+api_v1 = APIRouter(prefix="/api")
 
 def init_api(app: FastAPI):
     """Initialize fast api app.
