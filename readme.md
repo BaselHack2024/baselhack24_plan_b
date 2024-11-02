@@ -5,18 +5,14 @@
 [![](https://img.shields.io/badge/NumPy-013243.svg?style=for-the-badge&logo=NumPy&logoColor=white 'Numpy')](https://numpy.org)
 [![](https://img.shields.io/badge/pandas-150458.svg?style=for-the-badge&logo=pandas&logoColor=white 'Pandas')](https://pandas.pydata.org)
 
-This is the template repository, which makes our lives (and especially the lives of the jury) easier,
-if you follow our structure.
+Welcomme to our BaselHack project 2024. We were inspired by ![Example](assets/Endress+Hauser.png)
 
-## Explanation
+## Usability
 
-Please make sure that everything, that is code related, goes into `code` directory.
+The main usage of this projekt is to take photo sequenzes and convert this into a manual while using the OpenAI API.
 
-If you have documentation about the code (e.g. UML Diagrams, a readme etc.), that should go into the `documentation` directory.
+You upload you'r images trough a webUI and get direct feedback trough interactive chatbot. 
 
-If you have assets (like videos, presentations etc.), this can go into the `assets` directory.
 
-You can use the MIT license in this template. Make sure to adjust the copy right holders in the placeholder `<copyright holder>` and add every team member to it.
-You are also free to choose any other license - depending on the consensus of your team.
 
-Thanks a lot!
+
