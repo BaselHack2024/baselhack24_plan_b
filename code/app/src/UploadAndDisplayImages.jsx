@@ -46,7 +46,7 @@ const UploadAndDisplayImages = ({ open, onClose }) => {
         Upload and Display Images
         <IconButton
           aria-label="close"
-          onClick={() => onClose(null)}
+          onClick={() => onClose([])}
           sx={{
             position: "absolute",
             right: 8,
