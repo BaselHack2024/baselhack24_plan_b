@@ -7,12 +7,13 @@ class ImageAnalyzer(BaseModel):
 
 
 class Step(BaseModel):
-    step: int = Field(description="Step number xy")
-    instruction: str = Field(description="Instruction to the step xy")
+    step: int = Field(description="Step number")
+    instruction: str = Field(description="Instruction for the step")
 
 
 class Guide(BaseModel):
     object: str = Field(description="Short name of the object")
+    goal: str = Field(description="Long-form description of what the user is doing/assembling/operating")
     steps: List[Step] = Field(description="For each of the input images exactly one step")
 
 

@@ -1,4 +1,5 @@
 """This is the api module."""
+import json
 import os
 import uuid
 
@@ -55,7 +56,11 @@ async def initiate_analysis(start_analysis_input: StartAnalysisInput, background
                 description="check process",
                 status_code=status.HTTP_200_OK)
 def check_result(process_id: str):
-    return os.path.exists(f"./data/{process_id}/result.json")
-
-
-
+    # Check if file exists
+    if not os.path.exists(f"./data/{process_id}/result.json"):
+        return False
+    # Read file
+    else:
+        with open(f"./data/{process_id}/result.json") as f:
+            data = json.load(f)
+            return data
