@@ -10,6 +10,20 @@
 ![MUI](https://img.shields.io/badge/MUI-%230081CB.svg?style=for-the-badge&logo=mui&logoColor=white)
 ![React](https://img.shields.io/badge/react-%2320232a.svg?style=for-the-badge&logo=react&logoColor=%2361DAFB)
 
+## Project Contributors
+
+Part of the team was:
+
+[Michael Beutler](https://github.com/michaelbeutler)
+[Basil Holinger](https://github.com/kinba3000)
+[Paul Gesser](https://github.com/paulgeser)
+[Raquel Lima](https://github.com/raquelima)
+[Thierry Grimm](https://github.com/thierrygrimm)
+[Nathanel Thomman](https://github.com/nathanaelthomann)
+[Micha Thomman](https://github.com/)
+
+
+
 ## Project Description
 
 elManual is an application that helps you to automatically create user guides for you based on a sequence of images, turning every step into a fiesta! With our AI, you can upload images, and in a flash, it’ll convert them into clear instructions, sprinkled with just the right amount of humor and zest.
