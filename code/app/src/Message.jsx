@@ -1,7 +1,6 @@
 import React from "react";
+import { createStyles, makeStyles } from '@mui/styles';
 import Avatar from "@mui/material/Avatar";
-
-import { makeStyles, createStyles } from "@mui/styles";
 
 const useStyles = makeStyles((theme) =>
   createStyles({
