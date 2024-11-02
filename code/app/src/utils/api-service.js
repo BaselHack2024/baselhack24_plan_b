@@ -1,7 +1,7 @@
-
+const IP = '192.168.20.250'
 
 export const createProcessId = async () => {
-    const rawResponse = await fetch('http://localhost:8000/api/create-process', {
+    const rawResponse = await fetch(`http://${IP}:8000/api/create-process`, {
         method: 'POST',
         headers: {
             'Accept': 'application/json',
@@ -13,8 +13,21 @@ export const createProcessId = async () => {
     return content
 }
 
+export const startProcess = async (processId) => {
+    const rawResponse = await fetch(`http://${IP}:8000/api/initiate-process`, {
+        method: 'POST',
+        headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ process_id: processId })
+    });
+    const content = await rawResponse.json();
+    return content
+}
+
 export const uploadPicturesToProcess = async (images, processId) => {
-    const url = `http://localhost:8000/api/add_image/${processId}`;
+    const url = `http://${IP}:8000/api/add_image/${processId}`;
     const uploadResult = [];
     for (const image of images) {
         const formData = new FormData();
@@ -50,4 +63,17 @@ export const uploadPicturesToProcess = async (images, processId) => {
     }
 
     return uploadResult;
+}
+
+
+export const checkResult = async (processId) => {
+    const rawResponse = await fetch(`http://${IP}:8000/api/result/${processId}`, {
+        method: 'GET',
+        headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+        }
+    });
+    const content = await rawResponse.json();
+    return content
 }

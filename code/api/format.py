@@ -17,6 +17,16 @@ class Guide(BaseModel):
     steps: List[Step] = Field(description="For each of the input images exactly one step")
 
 
+# Subclass for exactly 3 steps
+class ThreeStepGuide(Guide):
+    steps: List[Step] = Field(description="Guide with exactly 3 steps", min_length=3, max_length=3)
+
+
+# Subclass for exactly 4 steps
+class FourStepGuide(Guide):
+    steps: List[Step] = Field(description="Guide with exactly 4 steps", min_length=4, max_length=4)
+
+
 # Subclass for exactly 5 steps
 class FiveStepGuide(Guide):
     steps: List[Step] = Field(description="Guide with exactly 5 steps", min_length=5, max_length=5)
@@ -49,7 +59,11 @@ class TenStepGuide(Guide):
 
 # Factory function to return the correct class based on expected_number
 def get_guide_class(expected_number: int):
-    if expected_number == 5:
+    if expected_number == 3:
+        return ThreeStepGuide
+    elif expected_number == 4:
+        return FourStepGuide
+    elif expected_number == 5:
         return FiveStepGuide
     elif expected_number == 6:
         return SixStepGuide

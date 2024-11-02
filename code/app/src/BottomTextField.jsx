@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import Paper from "@mui/material/Paper";
 import InputBase from "@mui/material/InputBase";
 import Divider from "@mui/material/Divider";
@@ -10,8 +10,10 @@ import SpeedDialAction from "@mui/material/SpeedDialAction";
 import FolderCopyRoundedIcon from "@mui/icons-material/FolderCopyRounded";
 import CameraAltRoundedIcon from "@mui/icons-material/CameraAltRounded";
 import UploadAndDisplayImages from "./UploadAndDisplayImages";
-import { createProcessId, uploadPicturesToProcess } from "./utils/api-service";
+import { createProcessId, uploadPicturesToProcess, startProcess, checkResult } from "./utils/api-service";
 import { MessageLeft, MessageRight } from "./Message";
+import Box from '@mui/material/Box';
+import LinearProgress from '@mui/material/LinearProgress';
 
 const actions = [
   {
@@ -30,7 +32,7 @@ function BottomTextField() {
   const [isModalOpen, setModalOpen] = useState(false);
   const [processId, setProcessId] = useState("");
   const [messages, setMessages] = useState([]);
-  const [primaryProcessInitiated, setPrimaryProcessInitiated] = useState(false);
+  const messagesRef = useRef(messages)
   const [disableInputs, setDisableInput] = useState(false);
   const [loading, setLoading] = useState(false);
 
@@ -68,7 +70,7 @@ function BottomTextField() {
     }
   };
 
-  const submitToApi = () => {
+  const submitToApi = async () => {
     setDisableInput(true);
     const messagesCopy = Object.assign([], messages);
     messagesCopy.push({
@@ -80,9 +82,31 @@ function BottomTextField() {
       message: `Thank you for the input, I am working on it!`,
     });
     setMessages(messagesCopy);
-    setPrimaryProcessInitiated(true);
     setLoading(true);
+
+    await startProcess(processId);
+
+    const interval = setInterval(async () => {
+      const response = await checkResult(processId);
+      console.log(response)
+      if ((typeof response) === 'object') {
+        clearInterval(interval);
+        handleAnalysisResponse(response);
+      };
+    }, 2000);
   };
+
+  const handleAnalysisResponse = (response) => {
+    console.log(response);
+    const messagesCopy = Object.assign([], messagesRef.current);
+
+    messagesCopy.push({
+      type: 'right',
+      message: `Hey I am done!`
+    });
+    setMessages(messagesCopy);
+
+  }
 
   useEffect(() => {
     createProcessId().then((id) => {
@@ -90,6 +114,11 @@ function BottomTextField() {
       setProcessId(id);
     });
   }, []);
+
+  useEffect(
+    () => { messagesRef.current = messages },
+    [messages]
+  )
 
   return (
     <div>
@@ -126,6 +155,7 @@ function BottomTextField() {
           inputProps={{ "aria-label": "text field" }}
         />
         <SpeedDial
+          disabled={disableInputs}
           ariaLabel="speed dial"
           sx={{
             position: "absolute",
@@ -158,6 +188,7 @@ function BottomTextField() {
           sx={{ p: "10px" }}
           aria-label="submit"
           onClick={submitToApi}
+          disabled={disableInputs}
         >
           <ArrowUpwardRoundedIcon />
         </IconButton>
