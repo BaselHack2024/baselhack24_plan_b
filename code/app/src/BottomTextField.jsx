@@ -174,7 +174,7 @@ function BottomTextField() {
         ))}
         {loading && (
           <>
-            <Box sx={{ width: "100%", marginLeft: "20px" }}>
+            <Box sx={{ width: "calc(100% - 20px)", marginLeft: "20px" }}>
               <CircularProgress />
             </Box>
           </>
