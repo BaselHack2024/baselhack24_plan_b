@@ -1,6 +1,3 @@
-# !pip install openai
-# !pip install dspy
-
 from typing import List
 from pydantic import (BaseModel, Field, )
 
