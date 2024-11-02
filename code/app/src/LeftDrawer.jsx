@@ -16,6 +16,7 @@ import ListItem from "@mui/material/ListItem";
 import ListItemButton from "@mui/material/ListItemButton";
 import ListItemText from "@mui/material/ListItemText";
 import RateReviewRoundedIcon from "@mui/icons-material/RateReviewRounded";
+import HeaderLogo from "./assets/logo.png";
 
 const drawerWidth = 240;
 
@@ -69,7 +70,10 @@ function LeftDrawer() {
       <CssBaseline />
       <AppBar position="fixed" open={open}>
         <Toolbar
-          sx={{ justifyContent: "space-between", backgroundColor: "#223E44" }}
+          sx={{
+            justifyContent: "space-between",
+            background: "linear-gradient(90deg, #ff3131, #ff914d)",
+          }}
         >
           <IconButton
             color="inherit"
@@ -81,7 +85,7 @@ function LeftDrawer() {
             <MenuIcon />
           </IconButton>
           <Typography variant="h6" noWrap component="div">
-            GuideMe
+            <img src={HeaderLogo} height="40px" />
           </Typography>
           <IconButton
             color="inherit"

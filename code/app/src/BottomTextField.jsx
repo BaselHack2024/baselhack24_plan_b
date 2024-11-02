@@ -16,9 +16,10 @@ import {
   startProcess,
   checkResult,
 } from "./utils/api-service";
-import { MessageLeft, MessageRight, MessageRightWithImage } from "./Message";
+import { MessageLeft, MessageRight, MessageLeftWithImage } from "./Message";
 import Box from "@mui/material/Box";
 import LinearProgress from "@mui/material/LinearProgress";
+import { CircularProgress } from "@mui/material";
 
 const actions = [
   {
@@ -120,6 +121,7 @@ function BottomTextField() {
       });
     });
     setMessages(messagesCopy);
+    setLoading(false);
   };
 
   useEffect(() => {
@@ -152,17 +154,17 @@ function BottomTextField() {
           <React.Fragment key={message.message}>
             {message.type === "left" && (
               <>
-                <MessageLeft message={message.message} />
+                <MessageRight message={message.message} />
               </>
             )}
             {message.type === "right" && (
               <>
-                <MessageRight message={message.message} />
+                <MessageLeft message={message.message} />
               </>
             )}
             {message.type === "right-picture" && (
               <>
-                <MessageRightWithImage
+                <MessageLeftWithImage
                   message={message.message}
                   image={message.image}
                 />
@@ -172,8 +174,8 @@ function BottomTextField() {
         ))}
         {loading && (
           <>
-            <Box sx={{ width: "100%" }}>
-              <LinearProgress />
+            <Box sx={{ width: "100%", marginLeft: "20px" }}>
+              <CircularProgress />
             </Box>
           </>
         )}

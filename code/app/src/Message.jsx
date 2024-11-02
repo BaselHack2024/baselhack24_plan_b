@@ -14,7 +14,7 @@ const useStyles = makeStyles((theme) =>
     messageBlue: {
       position: "relative",
       marginLeft: "20px",
-      marginBottom: "5px",
+      marginBottom: "15px",
       padding: "10px",
       backgroundColor: "#A8DDFD",
       width: "60%",
@@ -48,7 +48,7 @@ const useStyles = makeStyles((theme) =>
     messageOrange: {
       position: "relative",
       marginRight: "20px",
-      marginBottom: "10px",
+      marginBottom: "15px",
       padding: "10px",
       backgroundColor: "#f8e896",
       width: "60%",
@@ -125,15 +125,15 @@ export const MessageRight = (props) => {
   );
 };
 
-export const MessageRightWithImage = (props) => {
+export const MessageLeftWithImage = (props) => {
   const objectUrl = URL.createObjectURL(props.image);
   const classes = useStyles();
   const message = props.message ? props.message : "no message";
   return (
     <>
-      <img src={objectUrl} style={{ width: "70vw" }} />
-      <div className={classes.messageRowRight}>
-        <div className={classes.messageOrange}>
+      <div className={classes.messageRow}>
+        <div className={classes.messageBlue}>
+          <img src={objectUrl} style={{ width: "100%" }} />
           <p className={classes.messageContent}>{message}</p>
         </div>
       </div>
