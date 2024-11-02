@@ -46,78 +46,68 @@ function BottomTextField() {
   const handleCloseUploadDialog = (images) => {
     if (images) {
       setModalOpen(false);
-      uploadPicturesToProcess(images, processId).then(response => {
+      uploadPicturesToProcess(images, processId).then((response) => {
         console.log(response);
         const messagesCopy = Object.assign([], messages);
         for (const item of response) {
-          console.log(item)
-          if (item.state === 'success') {
+          console.log(item);
+          if (item.state === "success") {
             messagesCopy.push({
-              type: 'left',
-              message: `Successfully uploaded ${item.image.name}!`
+              type: "left",
+              message: `Successfully uploaded ${item.image.name}!`,
             });
           } else {
             messagesCopy.push({
-              type: 'left',
-              message: `Error while uploading ${item.image.name}...`
+              type: "left",
+              message: `Error while uploading ${item.image.name}...`,
             });
           }
         }
-        setMessages(messagesCopy)
+        setMessages(messagesCopy);
       });
     }
-  }
+  };
 
   const submitToApi = () => {
     setDisableInput(true);
     const messagesCopy = Object.assign([], messages);
     messagesCopy.push({
-      type: 'left',
-      message: `Please create instructions for me`
+      type: "left",
+      message: `Please create instructions for me`,
     });
     messagesCopy.push({
-      type: 'right',
-      message: `Thank you for the input, I am working on it!`
+      type: "right",
+      message: `Thank you for the input, I am working on it!`,
     });
     setMessages(messagesCopy);
     setPrimaryProcessInitiated(true);
     setLoading(true);
-  }
+  };
 
   useEffect(() => {
-    createProcessId().then(id => {
+    createProcessId().then((id) => {
       console.log(id);
       setProcessId(id);
-    })
+    });
   }, []);
 
   return (
     <div>
-      <Paper
-        sx={{
-          position: "fixed",
-          p: "4px 4px",
-          display: "flex",
-          flexDirection: "column",
-          top: 75,
-          left: 0,
-          right: 0,
-        }}
-      >
-        {messages.map(message => (<React.Fragment key={message.message}>
-          {message.type === 'left' && (<>
-            <MessageLeft
-              message={message.message}
-            />
-          </>)}
-          {message.type === 'right' && (<>
-            <MessageRight
-              message={message.message}
-            />
-          </>)}
-        </React.Fragment>))}
+      {messages.map((message) => (
+        <React.Fragment key={message.message}>
+          {message.type === "left" && (
+            <>
+              <MessageLeft message={message.message} />
+            </>
+          )}
+          {message.type === "right" && (
+            <>
+              <MessageRight message={message.message} />
+            </>
+          )}
+        </React.Fragment>
+      ))}
 
-      </Paper>
       <Paper
         component="form"
         sx={{
@@ -142,7 +132,15 @@ function BottomTextField() {
             bottom: 6,
             left: 1,
           }}
-          FabProps={{ size: "small" }}
+          FabProps={{
+            size: "small",
+            sx: {
+              bgcolor: "#223E44",
+              "&:hover": {
+                bgcolor: "#223E44",
+              },
+            },
+          }}
           icon={<SpeedDialIcon />}
         >
           {actions.map((action) => (
@@ -155,7 +153,12 @@ function BottomTextField() {
           ))}
         </SpeedDial>
         <Divider sx={{ height: 28, m: 0.5 }} orientation="vertical" />
-        <IconButton color="primary" sx={{ p: "10px" }} aria-label="submit" onClick={submitToApi}>
+        <IconButton
+          color="primary"
+          sx={{ p: "10px" }}
+          aria-label="submit"
+          onClick={submitToApi}
+        >
           <ArrowUpwardRoundedIcon />
         </IconButton>
         <UploadAndDisplayImages

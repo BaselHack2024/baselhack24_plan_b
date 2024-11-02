@@ -8,6 +8,7 @@ import IconButton from "@mui/material/IconButton";
 import CloseIcon from "@mui/icons-material/Close";
 import Typography from "@mui/material/Typography";
 import { styled } from "@mui/material/styles";
+import UploadFileIcon from "@mui/icons-material/UploadFile";
 
 const BootstrapDialog = styled(Dialog)(({ theme }) => ({
   "& .MuiDialogContent-root": {
@@ -74,15 +75,26 @@ const UploadAndDisplayImages = ({ open, onClose }) => {
             </div>
           ))}
         </div>
-        <input
-          type="file"
-          name="images"
-          multiple
-          onChange={handleImageChange}
-        />
+        <Button
+          component="label"
+          variant="outlined"
+          startIcon={<UploadFileIcon />}
+          sx={{ marginRight: "1rem" }}
+        >
+          Upload Images
+          <input
+            type="file"
+            hidden
+            name="images"
+            multiple
+            onChange={handleImageChange}
+          />
+        </Button>
       </DialogContent>
       <DialogActions>
-        <Button onClick={() => onClose(selectedImages)}>Save changes</Button>
+        <Button variant="contained" onClick={() => onClose(selectedImages)}>
+          Send images
+        </Button>
       </DialogActions>
     </BootstrapDialog>
   );
