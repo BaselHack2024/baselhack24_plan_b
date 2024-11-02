@@ -81,7 +81,7 @@ function LeftDrawer() {
             <MenuIcon />
           </IconButton>
           <Typography variant="h6" noWrap component="div">
-            elManual
+            GuideMe
           </Typography>
           <IconButton
             color="inherit"
