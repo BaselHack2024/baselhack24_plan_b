@@ -16,18 +16,18 @@ const useStyles = makeStyles((theme) =>
       marginLeft: "20px",
       marginBottom: "15px",
       padding: "10px",
-      backgroundColor: "#A8DDFD",
+      backgroundColor: "#E8E8EA",
       width: "60%",
       textAlign: "left",
       font: "400 .9em 'Open Sans', sans-serif",
-      border: "1px solid #97C6E3",
+      border: "1px solid #E8E8EA",
       borderRadius: "10px",
       "&:after": {
         content: "''",
         position: "absolute",
         width: "0",
         height: "0",
-        borderTop: "15px solid #A8DDFD",
+        borderTop: "15px solid #E8E8EA",
         borderLeft: "15px solid transparent",
         borderRight: "15px solid transparent",
         top: "0",
@@ -38,7 +38,7 @@ const useStyles = makeStyles((theme) =>
         position: "absolute",
         width: "0",
         height: "0",
-        borderTop: "17px solid #97C6E3",
+        borderTop: "17px solid #E8E8EA",
         borderLeft: "16px solid transparent",
         borderRight: "16px solid transparent",
         top: "-1px",
@@ -46,22 +46,23 @@ const useStyles = makeStyles((theme) =>
       },
     },
     messageOrange: {
+      color: "white",
       position: "relative",
       marginRight: "20px",
       marginBottom: "15px",
       padding: "10px",
-      backgroundColor: "#f8e896",
+      backgroundColor: "#497efb",
       width: "60%",
       textAlign: "left",
       font: "400 .9em 'Open Sans', sans-serif",
-      border: "1px solid #dfd087",
+      border: "1px solid #497efb",
       borderRadius: "10px",
       "&:after": {
         content: "''",
         position: "absolute",
         width: "0",
         height: "0",
-        borderTop: "15px solid #f8e896",
+        borderTop: "15px solid #497efb",
         borderLeft: "15px solid transparent",
         borderRight: "15px solid transparent",
         top: "0",
@@ -72,7 +73,7 @@ const useStyles = makeStyles((theme) =>
         position: "absolute",
         width: "0",
         height: "0",
-        borderTop: "17px solid #dfd087",
+        borderTop: "17px solid #497efb",
         borderLeft: "16px solid transparent",
         borderRight: "16px solid transparent",
         top: "-1px",
@@ -133,7 +134,7 @@ export const MessageLeftWithImage = (props) => {
     <>
       <div className={classes.messageRow}>
         <div className={classes.messageBlue}>
-          <img src={objectUrl} style={{ width: "100%" }} />
+          <img src={objectUrl} style={{ width: "100%", marginBottom: "5px" }} />
           <p className={classes.messageContent}>{message}</p>
         </div>
       </div>
