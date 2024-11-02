@@ -31,6 +31,8 @@ function BottomTextField() {
   const [processId, setProcessId] = useState("");
   const [messages, setMessages] = useState([]);
   const [primaryProcessInitiated, setPrimaryProcessInitiated] = useState(false);
+  const [disableInputs, setDisableInput] = useState(false);
+  const [loading, setLoading] = useState(false);
 
   const handleDialClick = (e, operation) => {
     e.preventDefault();
@@ -53,17 +55,33 @@ function BottomTextField() {
             messagesCopy.push({
               type: 'left',
               message: `Successfully uploaded ${item.image.name}!`
-            })
+            });
           } else {
             messagesCopy.push({
               type: 'left',
               message: `Error while uploading ${item.image.name}...`
-            })
+            });
           }
         }
         setMessages(messagesCopy)
       });
     }
+  }
+
+  const submitToApi = () => {
+    setDisableInput(true);
+    const messagesCopy = Object.assign([], messages);
+    messagesCopy.push({
+      type: 'left',
+      message: `Please create instructions for me`
+    });
+    messagesCopy.push({
+      type: 'right',
+      message: `Thank you for the input, I am working on it!`
+    });
+    setMessages(messagesCopy);
+    setPrimaryProcessInitiated(true);
+    setLoading(true);
   }
 
   useEffect(() => {
@@ -89,6 +107,11 @@ function BottomTextField() {
         {messages.map(message => (<React.Fragment key={message.message}>
           {message.type === 'left' && (<>
             <MessageLeft
+              message={message.message}
+            />
+          </>)}
+          {message.type === 'right' && (<>
+            <MessageRight
               message={message.message}
             />
           </>)}
@@ -132,7 +155,7 @@ function BottomTextField() {
           ))}
         </SpeedDial>
         <Divider sx={{ height: 28, m: 0.5 }} orientation="vertical" />
-        <IconButton color="primary" sx={{ p: "10px" }} aria-label="submit">
+        <IconButton color="primary" sx={{ p: "10px" }} aria-label="submit" onClick={submitToApi}>
           <ArrowUpwardRoundedIcon />
         </IconButton>
         <UploadAndDisplayImages
