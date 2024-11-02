@@ -1,33 +1,18 @@
 
-import os, uuid
-from fastapi import status
+import uuid
+from fastapi import status, BackgroundTasks
 from fastapi.routing import APIRouter
-from logic.prepare_analysis import create_process_directory
-
-import shutil
+from logic.run_analysis import run_process_analysis
+from logic.prepare_analysis import add_image_to_process_directory, create_process_directory
 
 from model.start_analysis_input import StartAnalysisInput
 
-from fastapi import FastAPI, File, UploadFile
+from fastapi import UploadFile
 
+import os
 
 namespace = APIRouter()
 
-
-@namespace.post("/initiate-process",
-                description="start analysis process",
-                status_code=status.HTTP_200_OK)
-def initiate_analysis(start_analysis_input: StartAnalysisInput):
-    '''     prepare_analysis(start_analysis_input.bucket_id)'''    
-    return "ok"
-
-
-@namespace.get("/result/{process_id}",
-                description="start analysis process",
-                status_code=status.HTTP_200_OK)
-def initiate_analysis(process_id: str):
-
-    return "ok"
 
 @namespace.post("/create-process",
     description="create process",
@@ -42,19 +27,19 @@ def create_process():
     description="add image to process",
                 status_code=status.HTTP_200_OK)
 def add_image_to_process(process_id: str, file: UploadFile):
-    data_folder_path = './data'
-    process_folder = f"{data_folder_path}/{process_id}" 
+    return add_image_to_process_directory(process_id, file)
 
-    os.makedirs(process_folder, exist_ok=True)
-    
-    # Define the full path for the new file
-    file_path = os.path.join(process_folder, file.filename)
 
-    try:
-        # Open the target file path within the process folder and copy the contents
-        with open(file_path, 'wb') as buffer:
-            shutil.copyfileobj(file.file, buffer)
-    finally:
-        file.file.close()
-    
-    return {"message": f"File {file.filename} uploaded successfully to {process_folder}"}
+@namespace.post("/initiate-process",
+                description="start analysis process",
+                status_code=status.HTTP_200_OK)
+async def initiate_analysis(start_analysis_input: StartAnalysisInput, background_tasks: BackgroundTasks):
+    background_tasks.add_task(run_process_analysis, start_analysis_input.process_id)
+    return "ok"
+
+
+@namespace.get("/result/{process_id}",
+                description="check process",
+                status_code=status.HTTP_200_OK)
+def check_result(process_id: str):
+    return os.path.exists(f"./data/{process_id}/result.json")
