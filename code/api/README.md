@@ -7,3 +7,5 @@ Install all requirements from the file 'requirements.txt'
 After the dependencies are installed, you can run the backend with the following command in the app directory:
 
 ```uvicorn main:app --reload```
+
+192.168.20.250:4566
