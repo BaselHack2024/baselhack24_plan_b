@@ -1,5 +1,5 @@
 import React from "react";
-import { createStyles, makeStyles } from '@mui/styles';
+import { createStyles, makeStyles } from "@mui/styles";
 import Avatar from "@mui/material/Avatar";
 
 const useStyles = makeStyles((theme) =>
@@ -116,12 +116,27 @@ export const MessageLeft = (props) => {
 export const MessageRight = (props) => {
   const classes = useStyles();
   const message = props.message ? props.message : "no message";
-  const timestamp = props.timestamp ? props.timestamp : "";
   return (
     <div className={classes.messageRowRight}>
       <div className={classes.messageOrange}>
         <p className={classes.messageContent}>{message}</p>
       </div>
     </div>
+  );
+};
+
+export const MessageRightWithImage = (props) => {
+  const objectUrl = URL.createObjectURL(props.image);
+  const classes = useStyles();
+  const message = props.message ? props.message : "no message";
+  return (
+    <>
+      <img src={objectUrl} style={{ width: "70vw" }} />
+      <div className={classes.messageRowRight}>
+        <div className={classes.messageOrange}>
+          <p className={classes.messageContent}>{message}</p>
+        </div>
+      </div>
+    </>
   );
 };
