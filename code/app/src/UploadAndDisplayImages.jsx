@@ -38,7 +38,7 @@ const UploadAndDisplayImages = ({ open, onClose }) => {
 
   return (
     <BootstrapDialog
-      onClose={onClose}
+      onClose={() => onClose(null)}
       open={open}
       aria-labelledby="customized-dialog-title"
     >
@@ -46,7 +46,7 @@ const UploadAndDisplayImages = ({ open, onClose }) => {
         Upload and Display Images
         <IconButton
           aria-label="close"
-          onClick={onClose}
+          onClick={() => onClose(null)}
           sx={{
             position: "absolute",
             right: 8,
@@ -82,7 +82,7 @@ const UploadAndDisplayImages = ({ open, onClose }) => {
         />
       </DialogContent>
       <DialogActions>
-        <Button onClick={onClose}>Save changes</Button>
+        <Button onClick={() => onClose(selectedImages)}>Save changes</Button>
       </DialogActions>
     </BootstrapDialog>
   );

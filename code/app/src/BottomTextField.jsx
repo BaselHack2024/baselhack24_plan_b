@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Paper from "@mui/material/Paper";
 import InputBase from "@mui/material/InputBase";
 import Divider from "@mui/material/Divider";
@@ -9,7 +9,8 @@ import SpeedDialIcon from "@mui/material/SpeedDialIcon";
 import SpeedDialAction from "@mui/material/SpeedDialAction";
 import FolderCopyRoundedIcon from "@mui/icons-material/FolderCopyRounded";
 import CameraAltRoundedIcon from "@mui/icons-material/CameraAltRounded";
-import UploadAndDisplayImages from "./UploadAndDisplayImages"; // Import the modal component
+import UploadAndDisplayImages from "./UploadAndDisplayImages";
+import { createProcessId, uploadPicturesToProcess } from "./utils/api-service";
 
 const actions = [
   {
@@ -26,6 +27,7 @@ const actions = [
 
 function BottomTextField() {
   const [isModalOpen, setModalOpen] = useState(false);
+  const [processId, setProcessId] = useState("");
 
   const handleDialClick = (e, operation) => {
     e.preventDefault();
@@ -35,6 +37,22 @@ function BottomTextField() {
       setModalOpen(true);
     }
   };
+
+  const handleCloseUploadDialog = (images) => {
+    if (images) {
+      setModalOpen(false);
+      uploadPicturesToProcess(images, processId).then(response => {
+        console.log(response);
+      })
+    }
+  }
+
+  useEffect(() => {
+    createProcessId().then(id => {
+      console.log(id)
+      setProcessId(id);
+    })
+  }, []);
 
   return (
     <Paper
@@ -79,7 +97,7 @@ function BottomTextField() {
       </IconButton>
       <UploadAndDisplayImages
         open={isModalOpen}
-        onClose={() => setModalOpen(false)}
+        onClose={(images) => handleCloseUploadDialog(images)}
       />
     </Paper>
   );
