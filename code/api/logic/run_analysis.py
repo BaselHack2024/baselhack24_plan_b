@@ -41,10 +41,12 @@ def run_process_analysis(process_id: str):
     if not os.path.exists(f"{process_folder}/descriptions.json"):
         logger.info(f"Generating descriptions for process {process_id}")
 
-        # Load and sort images by filename
+        # Load and sort images by timestamp
         images = []
         file_names = sorted(
-            [file_name for file_name in os.listdir(process_folder) if file_name.endswith((".jpg", ".jpeg", ".png"))])
+            [file_name for file_name in os.listdir(process_folder) if file_name.endswith((".jpg", ".jpeg", ".png"))],
+            key=lambda x: os.path.getmtime(os.path.join(process_folder, x))
+        )
         logger.info(f"Found {len(file_names)} images in {process_folder}")
 
         # Load images
