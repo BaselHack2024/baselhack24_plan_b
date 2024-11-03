@@ -51,6 +51,8 @@ Make sure all module requirements are met or install them with:
 python -m pip install -r requirements.txt
 ~~~
 
+Make sure the OpenAI API key is stored within `/code/api/.env` file and can be read from the programm. 
+
 
 After the dependencies are installed, you can run the backend with the following command in the app directory:
 
