@@ -1,7 +1,7 @@
 import json
 import os
 from concurrent.futures import ThreadPoolExecutor
-
+import openai
 import dspy
 import instructor
 from format import ImageAnalyzer
@@ -11,6 +11,9 @@ from PIL import Image
 from format import get_guide_class
 from tqdm import tqdm
 from dotenv import load_dotenv
+import whisper
+
+from pypdf import PdfReader
 
 # API key from .env
 load_dotenv()
@@ -87,6 +90,53 @@ def run_process_analysis(process_id: str):
         # Print or save the JSON output
         logger.info(f"JSON output:\n{json_output}")
 
+    #################################################################################################################
+    # WHISPER AUDIO TRANSCRIPTION
+    #################################################################################################################
+
+    # Run the transcription
+    transcription_text = ""
+    # transcription_text = transcribe_first_mp3(data_folder_path)
+
+    # prompt = f"""You are tasked with creating a user manual based on descriptions of a series of images.
+    #     1. Identify the relevant object that is most likely described.
+    #     2. Think about what the user is trying to achieve.
+    #     3. Generate a single, clear instruction for each image, ensuring that it directly relates to the corresponding description, with a total of exactly {len(image_descriptions)} steps. Babies will die if the number of steps is smaller than the requested number of steps. Ensure that the image references are correct and in the original order.
+    #
+    #     Note:Don't invent steps that are not described so far. Give out json.
+    #
+    #     Here is some context from the audio transcription:\n{transcription_text}\n
+    #     Here are the image descriptions:\n"""
+
+    # Optional: Save the transcription to a file
+    # if transcription_text:
+    #     with open(os.path.join(data_folder_path, "transcription.txt"), "w") as f:
+    #         f.write(transcription_text)
+    #     print("Transcription saved to transcription.txt")
+    #################################################################################################################
+
+    #################################################################################################################
+    # PDF File
+    #################################################################################################################
+
+    # Run the transcription
+    # pdf_parsed = ...
+
+    # Create the prompt for the user guide
+    # prompt = f"""You are tasked with creating a user manual based on descriptions of a series of images.
+    #     1. Identify the relevant object that is most likely described.
+    #     2. Think about what the user is trying to achieve.
+    #     3. Generate a single, clear instruction for each image, ensuring that it directly relates to the corresponding description, with a total of exactly {len(image_descriptions)} steps. Babies will die if the number of steps is smaller than the requested number of steps. Ensure that the image references are correct and in the original order.
+    #
+    #     Note: Don't invent steps that are not described so far. Give out json.
+    #
+    #     Here is some context from the PDF:\n{pdf_context_text[:2000]}\n
+    #     Here is some context from the audio transcription:\n{audio_transcription_text}\n
+    #     Here are the image descriptions:\n"""
+    #################################################################################################################
+
+
+
     prompt = f"""You are tasked with creating a user manual based on descriptions of a series of images. 
     1. Identify the relevant object that is most likely described.
     2. Think about what the user is trying to achieve.
@@ -95,6 +145,7 @@ def run_process_analysis(process_id: str):
     Note:Don't invent steps that are not described so far. Give out json. 
     
     Here are the image descriptions:\n"""
+
 
     for idx, description in enumerate(image_descriptions):
         prompt += f"image_{idx + 1}: {description}\n"
@@ -132,3 +183,59 @@ def process_image(client, image):
         max_retries=30,
     )
     return response.model_dump()["description"]
+
+
+def transcribe_first_mp3(folder_path):
+    # Initialize the Whisper model
+    model = whisper.load_model("base")  # You can adjust model size based on available resources
+
+    # Find the first MP3 file in the specified folder
+    for file_name in os.listdir(folder_path):
+        if file_name.endswith(".mp3"):
+            mp3_path = os.path.join(folder_path, file_name)
+            print(f"Found MP3 file: {mp3_path}")
+
+            # Transcribe the audio file
+            transcription_result = model.transcribe(mp3_path)
+            transcription_text = transcription_result['text']
+            print(f"Transcription:\n{transcription_text}")
+
+            return transcription_text  # Returning in case you want to store or use it later
+
+    print("No MP3 files found in the specified folder.")
+    return None
+
+
+def extract_text_from_pdf(pdf_path):
+    """Extracts text from a PDF file using PyPDF."""
+    text = ""
+    try:
+        reader = PdfReader(pdf_path)
+        for page in reader.pages:
+            text += page.extract_text() or ""
+    except Exception as e:
+        print(f"Error reading PDF: {e}")
+    return text
+
+
+def create_user_guide(context_text):
+    """Generates a user guide outline using context from a PDF."""
+    prompt = f"""
+    Based on the following reference text, create a structured user guide outline with key sections:
+
+    Reference Text:
+    {context_text[:2000]}  # Limit to the first 2000 characters to fit prompt length constraints
+
+    Outline:
+    - Provide an overview of the user guide structure.
+    - Include main sections such as 'Getting Started', 'Features', 'Troubleshooting', and 'FAQs'.
+    - For each section, list a few example points that a user guide would cover.
+    """
+
+    response = openai.Completion.create(
+        engine="text-davinci-003",  # Use a powerful model like "text-davinci-003" for detailed responses
+        prompt=prompt,
+        max_tokens=500,
+        temperature=0.7
+    )
+    return response.choices[0].text.strip()
