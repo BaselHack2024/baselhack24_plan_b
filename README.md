@@ -32,14 +32,15 @@ The application emphasizes modular design, user-friendly interaction, and robust
 
 :star2: Highlights:
 
-Upload up to 10 images at a time and watch as AI transforms them into delightful instructions.
-Chatbot optimization helps you refine your text, ensuring it’s as spicy as your favorite salsa.
-Fast image processing delivers immediate descriptions, making workflow documentation as easy as guacamole.
-Images are processed right after uploading, and the resulting instructions are formatted (specify format X) for easy sharing. Whether you're creating guides for tacos or tech, elManual serves up clear, engaging instructions to keep everyone on the same page.
+elManual App: Transform Images and PDFs into Savory, Shareable Instructions!
 
-The application features an intuitive chatbot interface that supports both new uploads and existing photos, making it accessible for everyone from taco vendors to tech gurus. The final product? Instructions that are a taco of the town!
+With elManual, you can upload up to 10 images or PDFs at once, and watch as AI crafts them into clear, delightful instructions. The chatbot refines your text, giving it just the right spice, so every detail is as irresistible as fresh salsa. Rapid image and PDF processing ensures that your content is ready in seconds, making documentation as smooth as guacamole.
 
-The elManual app combines culinary creativity with cutting-edge technology to ensure your instructions are always a hit!
+Once uploaded, images and PDFs are instantly converted, with instructions formatted to [specify format X] for easy sharing. Whether you’re guiding others through tacos or tech, elManual serves up step-by-step guides that everyone can savor.
+
+Our intuitive chatbot interface supports both new uploads and existing files, making it simple for everyone—from street food vendors to tech experts. The result? Instructions that are the true taco of the town!
+
+Combining culinary creativity with the latest tech, elManual ensures your instructions are always as clear, engaging, and memorable as a great recipe.
 
 ## Getting started
 
@@ -50,6 +51,7 @@ Make sure all module requirements are met or install them with:
 ~~~
 python -m pip install -r requirements.txt
 ~~~
+
 
 Make sure the OpenAI API key is stored within `/code/api/.env` file and can be read from the programm. 
 
