@@ -71,7 +71,7 @@ function LeftDrawer() {
         <Toolbar
           sx={{
             justifyContent: "space-between",
-            background: "linear-gradient(45deg, #ab5353, transparent)",
+            background: "linear-gradient(45deg, #076bff, transparent)",
           }}
         >
           <IconButton

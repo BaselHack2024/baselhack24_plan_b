@@ -215,9 +215,9 @@ function BottomTextField() {
           FabProps={{
             size: "small",
             sx: {
-              bgcolor: "#ab5353",
+              bgcolor: "#076bff",
               "&:hover": {
-                bgcolor: "#ab5353",
+                bgcolor: "#3888ff",
               },
             },
           }}
